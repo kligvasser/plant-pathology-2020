@@ -183,8 +183,7 @@ class Trainer():
                 preds = torch.cat((preds, outputs), dim=0)
 
         # Save submission
-        preds = torch.softmax(preds, dim=1)
-        self._save_submission(df, preds)
+        self._save_submission(df, torch.softmax(preds, dim=1))
         return preds
 
     def _save_model(self):
@@ -267,8 +266,7 @@ class Trainer():
         # Save submission
         self.session += 1
         df = pd.read_csv(os.path.join(self.args.root, 'sample_submission.csv'))
-        preds_tot = torch.softmax(preds_tot, dim=1)
-        self._save_submission(df, preds_tot)
+        self._save_submission(df, torch.softmax(preds_tot, dim=1))
 
         # Close tensorboard
         if self.args.use_tb:
