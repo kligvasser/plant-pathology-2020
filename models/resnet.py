@@ -33,7 +33,7 @@ class ResNet(nn.Module):
         x = self.backbone.layer4(x)
 
         x = F.adaptive_avg_pool2d(x, output_size=1).flatten(start_dim=1)
-        x = F.dropout(x, p=0.25, training=self.training)
+        x = F.dropout(x, p=0.2, training=self.training)
 
         x = self.classifer(x)
 

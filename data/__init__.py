@@ -23,16 +23,15 @@ def get_transforms(args):
     transforms_train = A.Compose([
         A.RandomResizedCrop(height=args.crop_size, width=args.crop_size, p=1.0),
         A.Flip(),
-        A.ShiftScaleRotate(rotate_limit=1.0, p=0.8),
-        A.OneOf([
-            A.IAAEmboss(p=1.0),
-            A.IAASharpen(p=1.0),
-            A.Blur(p=1.0),
-        ], p=0.5),
-        A.OneOf([
-            A.ElasticTransform(p=1.0),
-            A.IAAPiecewiseAffine(p=1.0),
-        ], p=0.5),
+        # A.ShiftScaleRotate(rotate_limit=1.0, p=0.8),
+        # A.OneOf([
+        #     A.IAAEmboss(p=1.0),
+        #     A.IAASharpen(p=1.0),
+        # ], p=0.5),
+        # A.OneOf([
+        #     A.ElasticTransform(p=1.0),
+        #     A.IAAPiecewiseAffine(p=1.0),
+        # ], p=0.5),
         A.Normalize(p=1.0),
         ToTensorV2(p=1.0),
     ])
