@@ -17,6 +17,7 @@ class Trainer():
         self.args = args
         self.device = args.device
         self.session = 0
+        self.print_model = True
         
         if self.args.use_tb:
             self.tb = RecoderX(log_dir=args.save_path)
@@ -29,6 +30,12 @@ class Trainer():
             model_config = {}
         model = models.__dict__[self.args.model]
         self.model = model(**model_config).to(self.device)
+
+        # Print model
+        if self.print_model:
+            logging.info(self.model)
+            logging.info('Number of parameters: {}'.format(sum([l.nelement() for l in self.model.parameters()])))
+            self.print_model = False
 
         # Loading weights
         if self.args.file2load is not '':
