@@ -68,7 +68,6 @@ if __name__ == "__main__":
     images = None
     for i in range(16):
         image = (transforms['train'](input)).unsqueeze(dim=0)
-
         if images is None:
             images = image
         else:

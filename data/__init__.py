@@ -16,6 +16,3 @@ def get_loaders(args, df_train, df_eval):
 
     loaders = {'train': loader_train, 'eval': loader_eval}
     return loaders
-
-
-
