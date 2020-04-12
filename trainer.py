@@ -4,7 +4,7 @@ import models
 import numpy as np
 import pandas as pd
 import os
-from utils.misc import average, plot_image_grid
+from utils.misc import average
 from data import get_loaders
 from ast import literal_eval
 from torch.optim.lr_scheduler import StepLR

@@ -1,9 +1,10 @@
 # resnets
-python3 main.py --model resnet --model-config "{'depth': 18}" --root /home/kligtech/datasets/plants/ --crop-size 512 --use-tb --train-cross-validation --lr 0.0005 --step-size 10 --gamma 0.2 --epochs 30 --batch-size 32
-python3 main.py --model resnet --model-config "{'depth': 34}" --root /home/kligtech/datasets/plants/ --crop-size 512 --use-tb --train-cross-validation --lr 0.0005 --step-size 10 --gamma 0.2 --epochs 30 --batch-size 16
-python3 main.py --model resnet --model-config "{'depth': 50}" --root /home/kligtech/datasets/plants/ --crop-size 512 --use-tb --train-cross-validation --lr 0.0005 --step-size 10 --gamma 0.2 --epochs 30 --batch-size 16
+python3 main.py --model resnet --model-config "{'depth': 18}" --root /home/kligtech/datasets/plants/ --crop-size 512 --use-tb --train-cross-validation --lr 0.0005 --step-size 10 --gamma 0.2 --epochs 20 --batch-size 32
+#python3 main.py --model resnet --model-config "{'depth': 18}" --root /home/kligtech/datasets/plants/ --crop-size 512 --use-tb --train-cross-validation --lr 0.0005 --step-size 10 --gamma 0.2 --epochs 30 --batch-size 64 --seed 42
+#python3 main.py --model resnet --model-config "{'depth': 34}" --root /home/kligtech/datasets/plants/ --crop-size 512 --use-tb --train-cross-validation --lr 0.0005 --step-size 10 --gamma 0.2 --epochs 30 --batch-size 16
+#python3 main.py --model resnet --model-config "{'depth': 50}" --root /home/kligtech/datasets/plants/ --crop-size 512 --use-tb --train-cross-validation --lr 0.0005 --step-size 10 --gamma 0.2 --epochs 30 --batch-size 16
 
 # efficientnets
-python3 main.py --model efficientnet --model-config "{'b_type': 3}" --root /home/kligtech/datasets/plants/ --crop-size 512 --use-tb --train-cross-validation --lr 0.0005 --step-size 10 --gamma 0.2 --epochs 30 --batch-size 8
-python3 main.py --model efficientnet --model-config "{'b_type': 4}" --root /home/kligtech/datasets/plants/ crop-size 320 --use-tb --train-cross-validation --lr 0.0005 --step-size 10 --gamma 0.2 --epochs 30 --batch-size 16
-python3 main.py --model efficientnet --model-config "{'b_type': 5}" --root /home/kligtech/datasets/plants/ --crop-size 320 --use-tb --train-cross-validation --lr 0.0005 --step-size 10 --gamma 0.2 --epochs 30 --batch-size 8
+python3 main.py --model efficientnet --model-config "{'b_type': 3}" --root /home/kligtech/datasets/plants/ --crop-size 512 --use-tb --train-cross-validation --lr 0.0005 --step-size 10 --gamma 0.2 --epochs 20 --batch-size 8
+#python3 main.py --model efficientnet --model-config "{'b_type': 4}" --root /home/kligtech/datasets/plants/ crop-size 320 --use-tb --train-cross-validation --lr 0.0005 --step-size 10 --gamma 0.2 --epochs 30 --batch-size 16
+#python3 main.py --model efficientnet --model-config "{'b_type': 5}" --root /home/kligtech/datasets/plants/ --crop-size 320 --use-tb --train-cross-validation --lr 0.0005 --step-size 10 --gamma 0.2 --epochs 30 --batch-size 8
