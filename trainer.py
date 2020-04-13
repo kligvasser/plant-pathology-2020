@@ -61,7 +61,7 @@ class Trainer():
         # Init parameters
         self.num_train_steps = 0
         self.num_eval_steps = 0
-        self.auc_best = 0.
+        self.score_best = 0.
         self.losses = {'loss_train': [], 'loss_eval': [], 'accuracy_train': [], 'auc_train': [], 'accuracy_eval': [], 'auc_eval': []}
 
         # Initialize model
@@ -160,7 +160,7 @@ class Trainer():
         line2print = 'Evaluation: Accuracy: {:.2f}, AUC {:.3f}, Loss: {:.5f}\n'.format(acc, auc, loss)
         logging.info(line2print)
 
-        return auc
+        return auc, acc
 
     def _compute_scores(self, preds, targets):
         # Compute accuracy
@@ -235,18 +235,19 @@ class Trainer():
             self._train_epoch(loaders['train'])
 
             # Eval
-            auc = self._eval_epoch(loaders['eval'], epoch)
+            auc, acc = self._eval_epoch(loaders['eval'], epoch)
+            score = auc * self.args.weight_auc + (acc / 100.) * self.args.weight_acc
 
             # Scheduler
             self.scheduler.step(epoch=epoch)
 
             # Check best model
-            if auc > self.auc_best:
-                self.auc_best = auc
+            if score > self.score_best:
+                self.score_best = score
                 self.model_best = deepcopy(self.model)
 
         # Best Score
-        logging.info('Best evaluation AUC: {:.3f}\n'.format(self.auc_best))
+        logging.info('Best evaluation score: {:.3f}\n'.format(self.score_best))
 
         # Save model
         self._save_model()
@@ -261,7 +262,7 @@ class Trainer():
         y_folds = df_folds[:, 2] + df_folds[:, 3] * 2 + df_folds[:, 1] * 3
 
         # Run cross validation
-        auc = []
+        scores = []
         preds_tot = None
         for i, (train_index, eval_index) in enumerate(stratified_k_fold.split(df_folds, y_folds)):
             # Set data-frames
@@ -277,7 +278,7 @@ class Trainer():
 
             # Run training
             self._train(loaders)
-            auc.append(self.auc_best)
+            scores.append(self.score_best)
 
             # Run test
             preds = self._test_epoch()
@@ -287,7 +288,7 @@ class Trainer():
             else:
                 preds_tot += preds / self.args.num_splits
 
-        logging.info('\nFinished cross-validation with average AUC of: {:.3f}'.format(average(auc)))
+        logging.info('\nFinished cross-validation with average score of: {:.3f}'.format(average(scores)))
 
         # Save submission
         self.session += 1
@@ -311,7 +312,7 @@ class Trainer():
         # Run training
         self._train(loaders)
 
-        logging.info('\nFinished training with auc of: {:.3f}'.format(self.auc_best))
+        logging.info('\nFinished training with auc of: {:.3f}'.format(self.score_best))
 
         # Test
         self._test_epoch()
