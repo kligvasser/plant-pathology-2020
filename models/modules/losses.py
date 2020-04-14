@@ -20,7 +20,7 @@ class DenseCrossEntropy(nn.Module):
         return hot
 
 class FocalLoss(nn.Module):
-    def __init__(self, alpha=0.25, gamma=2.):
+    def __init__(self, alpha=0.75, gamma=2.):
         super(FocalLoss, self).__init__()
         self.alpha = alpha
         self.gamma = gamma
