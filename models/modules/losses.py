@@ -9,12 +9,9 @@ class DenseCrossEntropy(nn.Module):
     def forward(self, logits, targets):
         logits = logits.float()
         labels = self.hot_one(logits, targets)
-
         logprobs = F.log_softmax(logits, dim=-1)
-
         loss = -labels * logprobs
         loss = loss.sum(dim=-1)
-
         return loss.mean()
 
     def hot_one(self, logits, labels):
@@ -23,14 +20,14 @@ class DenseCrossEntropy(nn.Module):
         return hot
 
 class FocalLoss(nn.Module):
-    def __init__(self, gamma=0, eps=1e-7):
+    def __init__(self, alpha=0.25, gamma=2.):
         super(FocalLoss, self).__init__()
+        self.alpha = alpha
         self.gamma = gamma
-        self.eps = eps
-        self.ce = torch.nn.CrossEntropyLoss()
 
-    def forward(self, input, target):
-        logp = self.ce(input, target)
-        p = torch.exp(-logp)
-        loss = (1. - p) ** self.gamma * logp
-        return loss.mean()
+    def forward(self, inputs, targets):
+        ce_loss = torch.nn.functional.cross_entropy(inputs, targets, reduction='none')
+        pt = torch.exp(-ce_loss)
+        focal_loss = (self.alpha * (1. - pt) ** self.gamma * ce_loss).mean()
+
+        return focal_loss

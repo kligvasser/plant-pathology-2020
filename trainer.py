@@ -5,7 +5,7 @@ import numpy as np
 import pandas as pd
 import os
 from utils.misc import average
-from utils.optim import get_cosine_scheduler_with_warmup
+from models.modules.losses import FocalLoss
 from data import get_loaders
 from ast import literal_eval
 from torch.optim.lr_scheduler import StepLR
@@ -53,11 +53,11 @@ class Trainer():
         self.optimizer = torch.optim.Adam(self.model.parameters(), lr=self.args.lr)
 
         # Initialize scheduler
-        # self.scheduler = StepLR(self.optimizer, step_size=self.args.step_size, gamma=self.args.gamma)
-        self.scheduler = get_cosine_scheduler_with_warmup(self.optimizer)
+        self.scheduler = StepLR(self.optimizer, step_size=self.args.step_size, gamma=self.args.gamma)
 
         # Initialize loss
-        self.criterion = torch.nn.CrossEntropyLoss().to(self.device)
+        # self.criterion = torch.nn.CrossEntropyLoss().to(self.device)
+        self.criterion = FocalLoss(gamma=self.args.gamma)
 
     def _init(self):
         # Init parameters
