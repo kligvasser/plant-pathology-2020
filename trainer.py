@@ -5,7 +5,7 @@ import numpy as np
 import pandas as pd
 import os
 from utils.misc import average
-from utils.optim import get_exp_scheduler_with_warmup
+from utils.optim import get_cosine_scheduler_with_warmup
 from data import get_loaders
 from ast import literal_eval
 from torch.optim.lr_scheduler import StepLR
@@ -54,7 +54,7 @@ class Trainer():
 
         # Initialize scheduler
         # self.scheduler = StepLR(self.optimizer, step_size=self.args.step_size, gamma=self.args.gamma)
-        self.scheduler = get_exp_scheduler_with_warmup(self.optimizer)
+        self.scheduler = get_cosine_scheduler_with_warmup(self.optimizer)
 
         # Initialize loss
         self.criterion = torch.nn.CrossEntropyLoss().to(self.device)
