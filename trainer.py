@@ -57,7 +57,7 @@ class Trainer():
 
         # Initialize loss
         # self.criterion = torch.nn.CrossEntropyLoss().to(self.device)
-        self.criterion = FocalLoss(gamma=self.args.factor)
+        self.criterion = FocalLoss()
 
     def _init(self):
         # Init parameters
