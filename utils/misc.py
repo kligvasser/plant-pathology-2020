@@ -61,9 +61,6 @@ def setup_logging(log_file='log.txt', resume=False, dummy=False):
 def average(lst):
     return sum(lst) / len(lst)
 
-def count_pixels(tensor):
-    return int(tensor.size(2) * tensor.size(3))
-
 if __name__ == "__main__":
     print('None')
 
