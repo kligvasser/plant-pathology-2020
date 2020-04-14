@@ -288,7 +288,7 @@ class Trainer():
             else:
                 preds_tot += preds / self.args.num_splits
 
-        logging.info('\nFinished cross-validation with average score of: {:.3f}'.format(average(scores)))
+        logging.info('\nFinished cross-validation with average score of: {:.3f}\n\n'.format(average(scores)))
 
         # Save submission
         self.session += 1

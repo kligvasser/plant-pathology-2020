@@ -59,7 +59,7 @@ def get_transforms(args):
         torchvision.transforms.RandomResizedCrop(args.crop_size, scale=(0.2, 1.0)),
         torchvision.transforms.RandomHorizontalFlip(),
         torchvision.transforms.RandomVerticalFlip(),
-        torchvision.transforms.ColorJitter(brightness=0.25, contrast=0.25, saturation=0.25),
+        torchvision.transforms.ColorJitter(brightness=0.2, contrast=0.2, saturation=0.2),
         torchvision.transforms.ToTensor(),
         Lighting(0.1, _IMAGENET_PCA['eigval'], _IMAGENET_PCA['eigvec']),
         torchvision.transforms.Normalize(**_IMAGENET_STATS),
