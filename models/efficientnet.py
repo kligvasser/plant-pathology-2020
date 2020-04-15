@@ -3,13 +3,6 @@ import torch.nn as nn
 
 __all__ = ['efficientnet']
 
-class Swish(nn.Module):
-    def __init__(self):
-        super(Swish, self).__init__()
-
-    def forward(self, x):
-        return x * x.sigmoid()
-
 class EfficientNet(nn.Module):
     def __init__(self, num_classes=4, b_type=7, modify_fc=False):
         super().__init__()
@@ -17,10 +10,10 @@ class EfficientNet(nn.Module):
 
         if modify_fc:
             in_features = self.efficientnet._fc.in_features
-            self.efficientnet._fc = nn.Sequential(nn.Linear(in_features, 256),
-                                                  Swish(),
-                                                  nn.Dropout(p=0.2),
-                                                  nn.Linear(256, num_classes))
+            self.efficientnet._fc = nn.Sequential(nn.Linear(in_features, 512),
+                                                  nn.ReLU(inplace=True),
+                                                  nn.Dropout(p=0.3),
+                                                  nn.Linear(512, num_classes))
     def forward(self, x):
         x = self.efficientnet(x)
         return x
