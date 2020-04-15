@@ -56,8 +56,7 @@ class Trainer():
         self.scheduler = StepLR(self.optimizer, step_size=self.args.step_size, gamma=self.args.gamma)
 
         # Initialize loss
-        # self.criterion = torch.nn.CrossEntropyLoss().to(self.device)
-        self.criterion = FocalLoss()
+        self.criterion = torch.nn.CrossEntropyLoss().to(self.device)
 
     def _init(self):
         # Init parameters
