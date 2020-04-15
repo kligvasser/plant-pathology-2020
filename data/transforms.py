@@ -185,8 +185,9 @@ if __name__ == "__main__":
     from utils.misc import *
 
     parser = argparse.ArgumentParser()
-    parser.add_argument('--crop-size', default=(480, 768), type=int)
+    parser.add_argument('--crop-size', default=(480, 768), type=int, nargs=2, help='image sizing (default: 480x768)')
     args = parser.parse_args()
+    args.crop_size = tuple(args.crop_size)
 
     transforms = get_transforms(args)
     input = Image.open('/home/kligtech/datasets/plants/images/Train_{}.jpg'.format(random.randint(0, 1000))).convert('RGB')

@@ -21,7 +21,7 @@ def get_arguments():
     parser.add_argument('--file2load', default='', help='resume training from file (default: None)')
     parser.add_argument('--root', default='/media/kligtech/Data/datasets/bsd', help='root dataset folder')
     # parser.add_argument('--crop-size', default=512, type=int, help='image sizing (default: 512)')
-    parser.add_argument('--crop-size', default=[480, 768], type=int, nargs='+', help='image sizing (default: 480x768)')
+    parser.add_argument('--crop-size', default=(480, 768), type=int, nargs=2, help='image sizing (default: 480x768)')
     parser.add_argument('--batch-size', default=16, type=int, help='mini-batch size (default: 16)')
     parser.add_argument('--epochs', default=10, type=int, help='epochs (default: 10)')
     parser.add_argument('--lr', default=5e-4, type=float, help='lr (default: 5e-4)')
@@ -39,6 +39,8 @@ def get_arguments():
     parser.add_argument('--train-cross-validation', default=False, action='store_true')
     parser.add_argument('--test', default=False, action='store_true')
     args = parser.parse_args()
+
+    args.crop_size = tuple(args.crop_size)
 
     time_stamp = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
     if args.save is '':
