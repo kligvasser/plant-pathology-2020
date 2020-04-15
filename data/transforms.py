@@ -107,8 +107,8 @@ def get_transforms(args):
         torchvision.transforms.RandomVerticalFlip(),
         torchvision.transforms.ColorJitter(brightness=0.2, contrast=0.2, saturation=0.2),
         torchvision.transforms.ToTensor(),
-        Lighting(0.1, _IMAGENET_PCA['eigval'], _IMAGENET_PCA['eigvec']),
-        CutOut(length=int(args.crop_size * 0.4)),
+        # Lighting(0.1, _IMAGENET_PCA['eigval'], _IMAGENET_PCA['eigvec']),
+        # CutOut(length=int(args.crop_size * 0.4)),
         torchvision.transforms.Normalize(**_IMAGENET_STATS),
     ])
 

@@ -2,15 +2,15 @@
 
 This repository contains my code for the [Plant Pathology 2020](https://www.kaggle.com/c/plant-pathology-2020-fgvc7) competition.
 
-## Implemented
+## Tested solutions
 
 - [x] Baseline starter 
-- [ ] Efficient-nets two level classifier
+- [ ] Efficient-nets two levels classifier
 - [x] Exponential with warm up learning rate
 - [x] Cosine with warm up learning rate
-- [ ] Cutout
+- [x] Cutout
 - [ ] Cutmix
-- [ ] Lighting: PCA noising
+- [x] Lighting: PCA noising
 - [ ] OHEM loss
 - [x] Focal loss
 - [ ] Additive Angular Margin Loss (ArcFace)
@@ -24,7 +24,7 @@ This repository contains my code for the [Plant Pathology 2020](https://www.kagg
 | `2020-04-14_17-10-46` | exponential lr | 0.988 | 0.969 |
 | `2020-04-14_20-53-54` | cosine lr | 0.988 | 0.969 |
 | `2020-04-15_01-01-48` | focal loss | 0.988 | 0.971 |
-
+| `2020-04-15_07-52-47` | cutout and lighting | 0.989 | 0.971 |
 
 ## Examples
 
