@@ -100,7 +100,7 @@ class Lighting(object):
         return img.add(rgb.view(3, 1, 1).expand_as(img))
 
 def get_transforms(args):
-    # Train transforms
+    # Training transforms
     transforms_train = torchvision.transforms.Compose([
         torchvision.transforms.RandomResizedCrop(args.crop_size, scale=(0.2, 1.0)),
         torchvision.transforms.RandomHorizontalFlip(),
@@ -110,7 +110,7 @@ def get_transforms(args):
         torchvision.transforms.Normalize(**_IMAGENET_STATS),
     ])
 
-    # Train Elad's transforms
+    # Training Elad's transforms
     # transforms_train = torchvision.transforms.Compose([
     #     torchvision.transforms.RandomResizedCrop(args.crop_size),
     #     torchvision.transforms.RandomHorizontalFlip(),
@@ -125,7 +125,7 @@ def get_transforms(args):
     #     torchvision.transforms.Normalize(**_IMAGENET_STATS)
     # ])
 
-    # Eval transforms
+    # Evaluation transforms
     scale_size = int(min(args.crop_size) * 1.1) if isinstance(args.crop_size, tuple) else int(args.crop_size * 1.1)
     transforms_eval = torchvision.transforms.Compose([
         torchvision.transforms.Resize(scale_size),
@@ -195,7 +195,7 @@ if __name__ == "__main__":
     from utils.misc import *
 
     parser = argparse.ArgumentParser()
-    parser.add_argument('--crop-size', default=(480, 768), type=int, nargs=2, help='image sizing (default: 480x768)')
+    parser.add_argument('--crop-size', default=(500, 750), type=int, nargs=2, help='image sizing (default: 480x768)')
     args = parser.parse_args()
     args.crop_size = tuple(args.crop_size)
 
