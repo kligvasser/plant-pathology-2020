@@ -28,8 +28,9 @@ This repository contains my code for the [Plant Pathology 2020](https://www.kagg
 | `2020-04-15_07-52-47` | cutout and lighting | 0.989 | 0.971 |
 | `2020-04-15_07-52-47` | two stages classifier | 0.988 | 0.971 |
 | `2020-04-15_14-31-43` | inception augmentations | 0.988 | 0.973 |
+| `2020-04-15_18-16-36` | b4 and 480x768 | 0.987 | 0.968 |
 
-## Examples
+## Examples 0.987
 
 Baseline:
 ```shell
