@@ -119,7 +119,7 @@ def get_transforms(args):
     scale_size = int(min(args.crop_size) * 1.1) if isinstance(args.crop_size, tuple) else int(args.crop_size * 1.1)
     transforms_eval = torchvision.transforms.Compose([
         torchvision.transforms.Resize(scale_size),
-        # torchvision.transforms.CenterCrop(args.crop_size),
+        torchvision.transforms.CenterCrop(args.crop_size),
         torchvision.transforms.ToTensor(),
         torchvision.transforms.Normalize(**_IMAGENET_STATS),
     ])
