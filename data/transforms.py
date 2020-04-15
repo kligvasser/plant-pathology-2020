@@ -101,17 +101,6 @@ class Lighting(object):
 
 def get_transforms(args):
     # Train transforms
-    # transforms_train = torchvision.transforms.Compose([
-    #     torchvision.transforms.RandomResizedCrop(args.crop_size, scale=(0.2, 1.0)),
-    #     torchvision.transforms.RandomHorizontalFlip(),
-    #     torchvision.transforms.RandomVerticalFlip(),
-    #     torchvision.transforms.ColorJitter(brightness=0.2, contrast=0.2, saturation=0.2),
-    #     torchvision.transforms.ToTensor(),
-    #     # Lighting(0.1, _IMAGENET_PCA['eigval'], _IMAGENET_PCA['eigvec']),
-    #     # CutOut(length=int(args.crop_size * 0.4)),
-    #     torchvision.transforms.Normalize(**_IMAGENET_STATS),
-    # ])
-    # Train transforms
     transforms_train = torchvision.transforms.Compose([
         torchvision.transforms.RandomResizedCrop(args.crop_size),
         torchvision.transforms.RandomHorizontalFlip(),
@@ -127,8 +116,9 @@ def get_transforms(args):
     ])
 
     # Eval transforms
+    scale_size = [int(x * 1.1) for x in args.crop_size] if isinstance(args.crop_size, tuple) else int(args.crop_size * 1.1)
     transforms_eval = torchvision.transforms.Compose([
-        torchvision.transforms.Resize(int(args.crop_size * 1.1)),
+        torchvision.transforms.Resize(scale_size),
         torchvision.transforms.CenterCrop(args.crop_size),
         torchvision.transforms.ToTensor(),
         torchvision.transforms.Normalize(**_IMAGENET_STATS),
@@ -195,7 +185,7 @@ if __name__ == "__main__":
     from utils.misc import *
 
     parser = argparse.ArgumentParser()
-    parser.add_argument('--crop-size', default=256, type=int)
+    parser.add_argument('--crop-size', default=(480, 768), type=int)
     args = parser.parse_args()
 
     transforms = get_transforms(args)

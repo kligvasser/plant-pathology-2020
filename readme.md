@@ -6,7 +6,7 @@ This repository contains my code for the [Plant Pathology 2020](https://www.kagg
 
 - [x] Baseline starter 
 - [x] Efficient-nets two stages classifier
-- [ ] Efficeint-b5 and 480x768
+- [ ] Efficient-b5 and 480x768
 - [x] Exponential with warm up learning rate
 - [x] Cosine with warm up learning rate
 - [x] Cutout
@@ -27,6 +27,7 @@ This repository contains my code for the [Plant Pathology 2020](https://www.kagg
 | `2020-04-15_01-01-48` | focal loss | 0.988 | 0.971 |
 | `2020-04-15_07-52-47` | cutout and lighting | 0.989 | 0.971 |
 | `2020-04-15_07-52-47` | two stages classifier | 0.988 | 0.971 |
+| `2020-04-15_14-31-43` | inception augmentations | 0.988 | 0.973 |
 
 ## Examples
 
