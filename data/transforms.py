@@ -110,21 +110,6 @@ def get_transforms(args):
         torchvision.transforms.Normalize(**_IMAGENET_STATS),
     ])
 
-    # Training Elad's transforms
-    # transforms_train = torchvision.transforms.Compose([
-    #     torchvision.transforms.RandomResizedCrop(args.crop_size),
-    #     torchvision.transforms.RandomHorizontalFlip(),
-    #     torchvision.transforms.RandomVerticalFlip(),
-    #     torchvision.transforms.ColorJitter(
-    #         brightness=0.4,
-    #         contrast=0.4,
-    #         saturation=0.4,
-    #     ),
-    #     torchvision.transforms.ToTensor(),
-    #     Lighting(0.1, _IMAGENET_PCA['eigval'], _IMAGENET_PCA['eigvec']),
-    #     torchvision.transforms.Normalize(**_IMAGENET_STATS)
-    # ])
-
     # Evaluation transforms
     scale_size = int(min(args.crop_size) * 1.1) if isinstance(args.crop_size, tuple) else int(args.crop_size * 1.1)
     transforms_eval = torchvision.transforms.Compose([
@@ -195,9 +180,8 @@ if __name__ == "__main__":
     from utils.misc import *
 
     parser = argparse.ArgumentParser()
-    parser.add_argument('--crop-size', default=(500, 750), type=int, nargs=2, help='image sizing (default: 480x768)')
+    parser.add_argument('--crop-size', default=500, type=int, nargs=2, help='image sizing (default: 500)')
     args = parser.parse_args()
-    args.crop_size = tuple(args.crop_size)
 
     transforms = get_transforms(args)
     input = Image.open('/home/kligtech/datasets/plants/images/Train_{}.jpg'.format(random.randint(0, 1000))).convert('RGB')
