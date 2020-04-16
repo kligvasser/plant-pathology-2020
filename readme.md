@@ -14,6 +14,7 @@ This repository contains my code for the [Plant Pathology 2020](https://www.kagg
 - [x] Augmentation: PCA color ([paper](https://www.nvidia.cn/content/tesla/pdf/machine-learning/imagenet-classification-with-deep-convolutional-nn.pdf))
 - [ ] Augmentation: test-time augmentations (TTA)
 - [x] Loss: weighted evaluation score
+- [ ] Loss: dense
 - [ ] Loss: OHEM ([paper](https://arxiv.org/pdf/1604.03540.pdf))
 - [x] Loss: focal ([paper](https://arxiv.org/pdf/1708.02002.pdf))
 - [ ] Loss: additive angular margin (ArcFace) ([paper](https://arxiv.org/pdf/1801.07698.pdf))
@@ -30,8 +31,9 @@ This repository contains my code for the [Plant Pathology 2020](https://www.kagg
 | `2020-04-15_07-52-47` | two stages classifier | 0.988 | 0.971 |
 | `2020-04-15_14-31-43` | inception augmentations | 0.988 | 0.973 |
 | `2020-04-15_21-11-49` | 500x750 |  0.987 | 0.970 |
-| `2020-04-16_10-23-15` | weighted: 0.9 & 0.1 | 0.985 | 0.975 |
+| `2020-04-16_10-23-15` | weighted: 0.9 & 0.1 | 0.985 | **0.975** |
 | `2020-04-16_11-50-25` | weighted: 0.8 & 0.2 | 0.982 | 0.973 |
+| `2020-04-16_15-57-40` | cutmix | 0.985 | 0.961 |
 
 ## Examples
 

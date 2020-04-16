@@ -5,7 +5,7 @@ import numpy as np
 import pandas as pd
 import os
 from utils.misc import average
-from models.modules.losses import CutMixCrossEntropyLoss
+from models.modules.losses import CutMixCrossEntropyLoss, DenseCrossEntropy
 from data import get_loaders
 from ast import literal_eval
 from torch.optim.lr_scheduler import StepLR
@@ -59,7 +59,8 @@ class Trainer():
         if self.args.cutmix:
             self.criterion = CutMixCrossEntropyLoss().to(self.device)
         else:
-            self.criterion = torch.nn.CrossEntropyLoss().to(self.device)
+            # self.criterion = torch.nn.CrossEntropyLoss().to(self.device)
+            self.criterion = DenseCrossEntropy().to(self.device)
 
     def _init(self):
         # Init parameters
