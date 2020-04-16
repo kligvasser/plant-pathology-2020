@@ -4,12 +4,12 @@ This repository contains my code for the [Plant Pathology 2020](https://www.kagg
 
 ## Tested solutions
 
-- [x] Baseline: efficient-b3 
+- [x] Baseline: efficient-b3 768x768
 - [x] Architecture: efficient-nets two stages classifier
 - [x] Architecture: efficient-b5 and 500x750
 - [x] Learning rate: warm up exponential
 - [x] Learning rate: warm up cosine
-- [x] Augmentation: cutout
+- [x] Augmentation: cutout ([paper](https://arxiv.org/pdf/1708.04552))
 - [ ] Augmentation: cutmix ([paper](https://arxiv.org/pdf/1905.04899.pdf))
 - [x] Augmentation: PCA color ([paper](https://www.nvidia.cn/content/tesla/pdf/machine-learning/imagenet-classification-with-deep-convolutional-nn.pdf))
 - [ ] Augmentation: test-time augmentations (TTA)
