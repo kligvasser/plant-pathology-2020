@@ -16,7 +16,7 @@ class DenseCrossEntropy(nn.Module):
 
     def hot_one(self, logits, labels):
         hot = torch.zeros(size=logits.size()).to(logits.device)
-        hot.scatter_(1, labels, 1.0)
+        hot.scatter_(1, labels.unsqueeze(dim=-1), 1.0)
         return hot
 
 class FocalLoss(nn.Module):
