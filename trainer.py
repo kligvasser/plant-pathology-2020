@@ -5,7 +5,7 @@ import numpy as np
 import pandas as pd
 import os
 from utils.misc import average
-from models.modules.losses import FocalLoss
+from models.modules.losses import CutMixCrossEntropyLoss
 from data import get_loaders
 from ast import literal_eval
 from torch.optim.lr_scheduler import StepLR
@@ -56,7 +56,10 @@ class Trainer():
         self.scheduler = StepLR(self.optimizer, step_size=self.args.step_size, gamma=self.args.gamma)
 
         # Initialize loss
-        self.criterion = torch.nn.CrossEntropyLoss().to(self.device)
+        if self.args.cutmix:
+            self.criterion = CutMixCrossEntropyLoss().to(self.device)
+        else:
+            self.criterion = torch.nn.CrossEntropyLoss().to(self.device)
 
     def _init(self):
         # Init parameters
@@ -164,6 +167,10 @@ class Trainer():
         return auc, acc
 
     def _compute_scores(self, preds, targets):
+        # Targets of cutmix
+        if targets.ndimension() == 2:
+            _, targets = torch.max(targets, 1)
+
         # Compute accuracy
         _, predicted = torch.max(preds, 1)
         acc = 100. * (predicted == targets).sum() / targets.size(0)

@@ -29,6 +29,7 @@ def get_arguments():
     parser.add_argument('--gamma', default=0.5, type=float, help='scheduler gamma (default: 0.5)')
     parser.add_argument('--weight-auc', default=1.0, type=float, help='weight for auc (default: 1.0)')
     parser.add_argument('--weight-acc', default=0., type=float, help='weight for acc (default: 0)')
+    parser.add_argument('--cutmix', default=False, action='store_true')
     parser.add_argument('--debug-factor', default=0.25, type=float)
     parser.add_argument('--num-splits', default=5, type=int, help='num of splits (default: 5)')
     parser.add_argument('--seed', default=-1, type=int, help='random seed (default: random)')
