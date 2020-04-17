@@ -186,22 +186,23 @@ class Trainer():
 
         return acc, auc
 
-    def _test_iteration(self, data, batch_size):
+    def _test_iteration(self, data):
         self.num_eval_steps += 1
 
         # Set inputs
         inputs = data['input'].to(self.device)
+        inputs_size = inputs.size()
 
         # TTA
         if self.args.tta:
-            inputs = inputs.view(-1, 3, self.args.crop_size, self.args.crop_size)
+            inputs = inputs.view(-1, inputs_size[2], inputs_size[3], inputs_size[4])
 
         # Run model
         with torch.no_grad():
             outputs = self.model_best(inputs)
 
         if self.args.tta:
-            outputs = outputs.view(batch_size, self.args.tta, -1).mean(dim=1)
+            outputs = outputs.view(inputs_size[0], inputs_size[1], -1).mean(dim=1)
 
         return outputs.data.cpu()
 
@@ -217,7 +218,7 @@ class Trainer():
 
         # Test over epoch
         for i, data in enumerate(loaders['test']):
-            outputs = self._test_iteration(data, loaders['test'].batch_size)
+            outputs = self._test_iteration(data)
 
             if preds is None:
                 preds = outputs
