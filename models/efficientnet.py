@@ -19,7 +19,7 @@ class EfficientNet(nn.Module):
         return x
 
 def efficientnet(**config):
-    config.setdefault('b_type', 7)
+    config.setdefault('b_type', 3)
     config.setdefault('num_classes', 4)
     config.setdefault('modify_fc', False)
 
