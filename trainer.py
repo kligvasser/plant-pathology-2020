@@ -81,18 +81,19 @@ class Trainer():
     def _train_iteration(self, data, i):
         self.num_train_steps += 1
 
-        # Zero the parameter gradients
-        self.optimizer.zero_grad()
-
         # Set inputs
         inputs = data['input'].to(self.device)
         targets = data['target'].to(self.device)
 
-        # Forward + backward + optimize
+        # Forward + backward
         outputs = self.model(inputs)
         loss = self.criterion(outputs, targets)
         loss.backward()
-        self.optimizer.step()
+
+        # Optimize
+        if self.num_train_steps % self.args.update_rate == 0:
+            self.optimizer.step()
+            self.optimizer.zero_grad()
 
         # Compute scores
         preds = torch.softmax(outputs, dim=1)
@@ -139,7 +140,9 @@ class Trainer():
         return all_preds, all_targets
 
     def _train_epoch(self, loader):
+        # Zero the parameter gradients
         self.model.train()
+        self.optimizer.zero_grad()
 
         # Train over epochs
         for i, data in enumerate(loader):

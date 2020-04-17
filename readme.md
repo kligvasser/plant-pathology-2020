@@ -5,8 +5,9 @@ This repository contains my code for the [Plant Pathology 2020](https://www.kagg
 ## Tested solutions
 
 - [x] Baseline: efficient-b3 768x768
-- [x] Architecture: efficient-nets two stages classifier
-- [x] Architecture: efficient-b5 and 500x750
+- [x] Architecture: two stages classifier
+- [x] Architecture: efficient-b5
+- [x] Architecture: efficient-b7
 - [x] Learning rate: warm up exponential
 - [x] Learning rate: warm up cosine
 - [x] Augmentation: cutout ([paper](https://arxiv.org/pdf/1708.04552))

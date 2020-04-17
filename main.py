@@ -24,6 +24,7 @@ def get_arguments():
     parser.add_argument('--crop-scale', default=1.1, type=float, help='crop scaling for evaluation (default: 1.1)')
     parser.add_argument('--batch-size', default=16, type=int, help='mini-batch size (default: 16)')
     parser.add_argument('--epochs', default=10, type=int, help='epochs (default: 10)')
+    parser.add_argument('--update-rate', default=1, type=int, help='update optimizer rate (default: 1)')
     parser.add_argument('--lr', default=5e-4, type=float, help='lr (default: 5e-4)')
     parser.add_argument('--step-size', default=5, type=int, help='scheduler step size (default: 5)')
     parser.add_argument('--gamma', default=0.5, type=float, help='scheduler gamma (default: 0.5)')
