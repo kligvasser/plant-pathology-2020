@@ -4,14 +4,14 @@ import os
 
 def get_arguments():
     parser = argparse.ArgumentParser(description='Running with random settings')
-    parser.add_argument('--root', default='/home/tiras/datasets/kaggle/plants/', required=True, help='dataset root folder')
+    parser.add_argument('--root', default='', required=True, help='dataset root folder')
     parser.add_argument('--iterations', default=10, type=int, help='number of iterations (default 10)')
     args = parser.parse_args()
     return args
 
-def rand_flag(flag):
+def rand_flag(flag, p=0.5):
     r = random.random()
-    if r > 0.5:
+    if r > p:
         return flag
     else:
         return ''
@@ -22,7 +22,7 @@ def get_params():
     step_size = random.randint(8, 12)
     epochs = random.randint(16, 22)
     seed = random.randint(1, 10000)
-    tta = rand_flag('--tta')
+    tta = rand_flag('--tta', 0.8)
     auc = random.uniform(0.85, 1.0)
     acc = 1 - auc
 

@@ -12,7 +12,7 @@ This repository contains my code for the [Plant Pathology 2020](https://www.kagg
 - [x] Augmentation: cutout ([paper](https://arxiv.org/pdf/1708.04552))
 - [x] Augmentation: cutmix ([paper](https://arxiv.org/pdf/1905.04899.pdf))
 - [x] Augmentation: PCA color ([paper](https://www.nvidia.cn/content/tesla/pdf/machine-learning/imagenet-classification-with-deep-convolutional-nn.pdf))
-- [ ] Augmentation: test-time augmentations (TTA)
+- [x] Augmentation: test-time augmentations (TTA)
 - [x] Loss: weighted evaluation score
 - [x] Loss: dense cross entropy
 - [ ] Loss: OHEM ([paper](https://arxiv.org/pdf/1604.03540.pdf))
@@ -35,6 +35,7 @@ This repository contains my code for the [Plant Pathology 2020](https://www.kagg
 | `2020-04-16_11-50-25` | weighted: 0.8 & 0.2 | 0.982 | 0.973 |
 | `2020-04-16_15-57-40` | cutmix | 0.985 | 0.961 |
 | `2020-04-16_18-44-52` | dense cross entropy | 0.989 | **0.976** |
+| `2020-04-17_15-34-48` | test-time augmentations | 0.989 | 0.971 |
 
 ## Examples
 
