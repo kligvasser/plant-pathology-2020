@@ -39,12 +39,12 @@ This repository contains my code for the [Plant Pathology 2020](https://www.kagg
 
 ## Examples
 
-Baseline:
+Baseline (LB 0.973):
 ```shell
 $ python3 main.py --model efficientnet --model-config "{'b_type': 3}" --root /home/tiras/datasets/kaggle/plants/ --crop-size 768 --use-tb --train-cross-validation --lr 0.0005 --step-size 10 --gamma 0.2 --epochs 20 --batch-size 16 --device-ids 0 1 2 3 --seed 5716
 ```
  
- Weighted:
+ Weighted (LB 0.975):
  ```shell
  $ python3 main.py --model efficientnet --model-config "{'b_type': 3}" --root /home/tiras/datasets/kaggle/plants/ --crop-size 768 --use-tb --train-cross-validation --lr 0.0005 --step-size 10 --gamma 0.2 --epochs 20 --batch-size 16 --device-ids 0 1 2 3 --seed 5716 --weight-auc 0.9 --weight-acc 0.1
 ```

@@ -116,18 +116,10 @@ class Trainer():
         # Set inputs
         inputs = data['input'].to(self.device)
         targets = data['target'].to(self.device)
-        # inputs_size = inputs.size()
 
         # Run model
         with torch.no_grad():
-            # if self.args.tta:
-            #     inputs = inputs.view(-1, inputs_size[2], inputs_size[3], inputs_size[4])
-
             outputs = self.model(inputs)
-
-            # if self.args.tta:
-            #     outputs = outputs.view(inputs_size[0], inputs_size[1], -1).mean(dim=1)
-
             preds = torch.softmax(outputs, dim=1)
             loss = self.criterion(outputs, targets)
 
@@ -261,7 +253,6 @@ class Trainer():
 
             # Eval
             auc, acc = self._eval_epoch(loaders['eval'], epoch)
-            # auc, acc = self._eval_epoch(loaders['test'], epoch)
             score = auc * self.args.weight_auc + (acc / 100.) * self.args.weight_acc
 
             # Scheduler

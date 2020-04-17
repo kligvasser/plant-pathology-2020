@@ -122,7 +122,7 @@ def get_transforms(args):
     ])
 
     # Evaluation transforms
-    scale_size = int(min(args.crop_size) * 1.1) if isinstance(args.crop_size, tuple) else int(args.crop_size * 1.1)
+    scale_size = int(min(args.crop_size) * args.crop_scale) if isinstance(args.crop_size, tuple) else int(args.crop_size * args.crop_scale)
     transforms_eval = torchvision.transforms.Compose([
         torchvision.transforms.Resize(scale_size),
         torchvision.transforms.CenterCrop(args.crop_size),
