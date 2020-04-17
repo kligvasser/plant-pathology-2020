@@ -1,6 +1,11 @@
 import torch
+import torch.nn.functional as F
 import numpy as np
 import torchvision
+import numbers
+import random
+from PIL import Image
+
 
 _IMAGENET_STATS = {'mean': [0.485, 0.456, 0.406], 'std': [0.229, 0.224, 0.225]}
 _IMAGENET_PCA = {
@@ -53,6 +58,58 @@ class Lighting(object):
 
         return img.add(rgb.view(3, 1, 1).expand_as(img))
 
+class NRandomCrop(object):
+    def __init__(self, size, n=1, padding=0, pad_if_needed=False):
+        if isinstance(size, numbers.Number):
+            self.size = (int(size), int(size))
+        else:
+            self.size = size
+        self.padding = padding
+        self.pad_if_needed = pad_if_needed
+        self.n = n
+
+    @staticmethod
+    def get_params(img, output_size, n):
+        w, h = img.size
+        th, tw = output_size
+        if w == tw and h == th:
+            return 0, 0, h, w
+
+        i_list = [random.randint(0, h - th) for i in range(n)]
+        j_list = [random.randint(0, w - tw) for i in range(n)]
+        return i_list, j_list, th, tw
+
+    def __call__(self, img):
+        if self.padding > 0:
+            img = F.pad(img, self.padding)
+
+        # pad the width if needed
+        if self.pad_if_needed and img.size[0] < self.size[1]:
+            img = F.pad(img, (int((1 + self.size[1] - img.size[0]) / 2), 0))
+        # pad the height if needed
+        if self.pad_if_needed and img.size[1] < self.size[0]:
+            img = F.pad(img, (0, int((1 + self.size[0] - img.size[1]) / 2)))
+
+        i, j, h, w = self.get_params(img, self.size, self.n)
+
+        return n_random_crops(img, i, j, h, w)
+
+    def __repr__(self):
+        return self.__class__.__name__ + '(size={0}, padding={1})'.format(self.size, self.padding)
+
+def _is_pil_image(img):
+    return isinstance(img, Image.Image)
+
+def n_random_crops(img, x, y, h, w):
+    if not _is_pil_image(img):
+        raise TypeError('img should be PIL Image. Got {}'.format(type(img)))
+
+    crops = []
+    for i in range(len(x)):
+        new_crop = img.crop((y[i], x[i], y[i] + w, x[i] + h))
+        crops.append(new_crop)
+    return tuple(crops)
+
 def get_transforms(args):
     # Training transforms
     transforms_train = torchvision.transforms.Compose([
@@ -73,7 +130,25 @@ def get_transforms(args):
         torchvision.transforms.Normalize(**_IMAGENET_STATS),
     ])
 
-    transforms = {'train': transforms_train, 'eval': transforms_eval}
+    # Test transforms
+    if args.tta:
+        transforms_tta = torchvision.transforms.Compose([
+            torchvision.transforms.RandomHorizontalFlip(),
+            torchvision.transforms.RandomVerticalFlip(),
+            torchvision.transforms.ColorJitter(brightness=0.1, contrast=0.1, saturation=0.1),
+            torchvision.transforms.ToTensor(),
+            torchvision.transforms.Normalize(**_IMAGENET_STATS),
+            ])
+
+        transforms_test = torchvision.transforms.Compose([
+            torchvision.transforms.Resize(scale_size),
+            NRandomCrop(size=args.crop_size, n=args.tta),
+            torchvision.transforms.Lambda(lambda crops: torch.stack([transforms_tta(crop) for crop in crops]))
+            ])
+    else:
+        transforms_test = None
+
+    transforms = {'train': transforms_train, 'eval': transforms_eval, 'test': transforms_test}
     return transforms
 
 if __name__ == "__main__":
@@ -84,11 +159,13 @@ if __name__ == "__main__":
     from utils.misc import *
 
     parser = argparse.ArgumentParser()
-    parser.add_argument('--crop-size', default=500, type=int, nargs=2, help='image sizing (default: 500)')
+    parser.add_argument('--crop-size', default=500, type=int, help='image sizing (default: 500)')
+    parser.add_argument('--tta', default=16, type=int, help='tta num (default: 16)')
+    parser.add_argument('--root', default='/home/kligtech/datasets/kaggle/plants', help='root dataset folder')
     args = parser.parse_args()
 
     transforms = get_transforms(args)
-    input = Image.open('/home/kligtech/datasets/plants/images/Train_{}.jpg'.format(random.randint(0, 1000))).convert('RGB')
+    input = Image.open(os.path.join(args.root, 'images', 'Train_{}.jpg'.format(random.randint(0, 1000)))).convert('RGB')
 
     # Eval
     plot_image_grid(transforms['eval'](input), 1)
@@ -103,6 +180,11 @@ if __name__ == "__main__":
             images = torch.cat((images, image), dim=0)
 
     plot_image_grid(images, 4)
+
+    # Test
+    images = transforms['test'](input)
+    ncrops, c, h, w = images.size()
+    plot_image_grid(images.view(-1, c, h, w), 4)
 
 
 

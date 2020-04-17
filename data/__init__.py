@@ -6,16 +6,27 @@ def get_loaders(args, df_train, df_eval):
     # Get transforms
     transforms = get_transforms(args)
 
-    # Get datasets
+    # Train loader
     data_train = Dataset(root=args.root, df=df_train, transforms=transforms['train'])
-    data_eval = Dataset(root=args.root, df=df_eval, transforms=transforms['eval'])
 
     if args.cutmix:
         data_train = CutMix(dataset=data_train)
 
-    # Create dataloader
     loader_train = DataLoader(data_train, batch_size=args.batch_size, shuffle=True, num_workers=4)
+
+    # Eval loader
+    data_eval = Dataset(root=args.root, df=df_eval, transforms=transforms['eval'])
     loader_eval = DataLoader(data_eval, batch_size=args.batch_size, shuffle=False, num_workers=4)
 
-    loaders = {'train': loader_train, 'eval': loader_eval}
+    # Test loader
+    if args.tta:
+        data_test = Dataset(root=args.root, df=df_eval, transforms=transforms['test'])
+        batch_size = max(1, args.batch_size // int(args.tta ** 0.5))
+    else:
+        data_test = Dataset(root=args.root, df=df_eval, transforms=transforms['eval'])
+        batch_size = args.batch_size
+
+    loader_test = DataLoader(data_test, batch_size=batch_size, shuffle=False, num_workers=4)
+
+    loaders = {'train': loader_train, 'eval': loader_eval, 'test': loader_test}
     return loaders

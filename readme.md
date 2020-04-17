@@ -10,11 +10,11 @@ This repository contains my code for the [Plant Pathology 2020](https://www.kagg
 - [x] Learning rate: warm up exponential
 - [x] Learning rate: warm up cosine
 - [x] Augmentation: cutout ([paper](https://arxiv.org/pdf/1708.04552))
-- [ ] Augmentation: cutmix ([paper](https://arxiv.org/pdf/1905.04899.pdf))
+- [x] Augmentation: cutmix ([paper](https://arxiv.org/pdf/1905.04899.pdf))
 - [x] Augmentation: PCA color ([paper](https://www.nvidia.cn/content/tesla/pdf/machine-learning/imagenet-classification-with-deep-convolutional-nn.pdf))
 - [ ] Augmentation: test-time augmentations (TTA)
 - [x] Loss: weighted evaluation score
-- [ ] Loss: dense cross entropy
+- [x] Loss: dense cross entropy
 - [ ] Loss: OHEM ([paper](https://arxiv.org/pdf/1604.03540.pdf))
 - [x] Loss: focal ([paper](https://arxiv.org/pdf/1708.02002.pdf))
 - [ ] Loss: additive angular margin (ArcFace) ([paper](https://arxiv.org/pdf/1801.07698.pdf))
