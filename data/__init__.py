@@ -21,7 +21,7 @@ def get_loaders(args, df_train, df_eval):
     # Test loader
     if args.tta:
         data_test = Dataset(root=args.root, df=df_eval, transforms=transforms['test'])
-        batch_size = max(1, args.batch_size // int(args.tta ** 0.5))
+        batch_size = max(1, int(args.batch_size ** 0.5))
     else:
         data_test = Dataset(root=args.root, df=df_eval, transforms=transforms['eval'])
         batch_size = args.batch_size
