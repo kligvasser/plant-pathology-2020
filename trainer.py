@@ -54,8 +54,10 @@ class Trainer():
         self.optimizer = torch.optim.Adam(self.model.parameters(), lr=self.args.lr)
 
         # Initialize scheduler
-        # self.scheduler = StepLR(self.optimizer, step_size=self.args.step_size, gamma=self.args.gamma)
-        self.scheduler = get_exp_scheduler_with_warmup(self.optimizer, 5, 6)
+        if self.args.exp_scheduler:
+            self.scheduler = get_exp_scheduler_with_warmup(self.optimizer)
+        else:
+            self.scheduler = StepLR(self.optimizer, step_size=self.args.step_size, gamma=self.args.gamma)
 
         # Initialize loss
         if self.args.cutmix:

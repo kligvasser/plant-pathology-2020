@@ -1,14 +1,14 @@
 import torch
 import math
 
-def get_exp_scheduler_with_warmup(optimizer, rampup_steps=3, sustain_steps=6):
+def get_exp_scheduler_with_warmup(optimizer, rampup_steps=5, sustain_steps=5):
     def lr_lambda(step):
         if step < rampup_steps:
-            return min(1., 1.5 ** ((step - rampup_steps)))
+            return min(1., 1.8 ** ((step - rampup_steps)))
         elif step < rampup_steps + sustain_steps:
             return 1.
         else:
-            return max(0.1, 0.9 ** (step - rampup_steps - sustain_steps))
+            return max(0.1, 0.85 ** (step - rampup_steps - sustain_steps))
 
     return torch.optim.lr_scheduler.LambdaLR(optimizer, lr_lambda=lr_lambda)
 
@@ -27,8 +27,8 @@ if __name__ == "__main__":
     import matplotlib.pyplot as plt
 
     model = torch.nn.Linear(2, 1)
-    optimizer = torch.optim.SGD(model.parameters(), lr=5e-4)
-    lr_scheduler = get_cosine_scheduler_with_warmup(optimizer)
+    optimizer = torch.optim.SGD(model.parameters(), lr=2.5e-4)
+    lr_scheduler = get_exp_scheduler_with_warmup(optimizer)
 
     lrs = []
     for i in range(25):
