@@ -19,18 +19,19 @@ def rand_flag(flag, p=0.5):
 def get_params():
     crop_size = 768
     crop_scale = random.choice([1.1, 1.15, 1.2])
-    lr = random.uniform(0.00035, 0.00065)
+    lr = random.uniform(0.0003, 0.00055)
     step_size = random.randint(8, 12)
     epochs = random.randint(16, 22)
     seed = random.randint(1, 10000)
     tta = rand_flag('--tta', 0.8)
+    exp_scheduler = rand_flag('--exp-scheduler', 0.75)
     auc = random.uniform(0.85, 1.0)
     acc = 1 - auc
 
-    return {'crop_size': crop_size, 'crop_scale': crop_scale, 'lr': lr, 'step_size': step_size, 'epochs': epochs, 'seed': seed, 'tta': tta, 'auc': auc, 'acc': acc}
+    return {'crop_size': crop_size, 'crop_scale': crop_scale, 'lr': lr, 'step_size': step_size, 'epochs': epochs, 'seed': seed, 'tta': tta, 'auc': auc, 'acc': acc, 'exp_scheduler': exp_scheduler}
 
 def set_cmd(args, params):
-    cmd = 'python3 main.py --model efficientnet --root {} --crop-size {} --crop-scale {} --train-cross-validation --lr {:.6f} --step-size {} --gamma 0.2 --epochs {} --batch-size 16 --device-ids 0 1 2 3 --seed {} {}'.format(args.root, params['crop_size'], params['crop_scale'], params['lr'], params['step_size'], params['epochs'], params['seed'], params['tta'])
+    cmd = 'python3 main.py --model efficientnet --root {} --crop-size {} --crop-scale {} --train-cross-validation --lr {:.6f} --step-size {} --gamma 0.2 --epochs {} --batch-size 16 --device-ids 0 1 2 3 --seed {} {} {}'.format(args.root, params['crop_size'], params['crop_scale'], params['lr'], params['step_size'], params['epochs'], params['seed'], params['tta'], params['exp_scheduler'])
     return cmd
 
 def main():
