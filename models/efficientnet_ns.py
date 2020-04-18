@@ -1,25 +1,26 @@
-import efficientnet_pytorch
+import torch
 import torch.nn as nn
 
-__all__ = ['efficientnet']
+__all__ = ['efficientnet_ns']
 
 class EfficientNet(nn.Module):
     def __init__(self, num_classes=4, b_type=7, two_stage=False):
         super().__init__()
-        self.efficientnet = efficientnet_pytorch.EfficientNet.from_pretrained('efficientnet-b{}'.format(b_type), num_classes=num_classes)
-
+        self.efficientnet = torch.hub.load('rwightman/gen-efficientnet-pytorch', 'tf_efficientnet_b{}_ns'.format(b_type) , pretrained=True)
+        in_features = self.efficientnet.classifier.in_features
         if two_stage:
-            in_features = self.efficientnet._fc.in_features
-            self.efficientnet._fc = nn.Sequential(nn.Linear(in_features, 512),
+            self.efficientnet.classifier = nn.Sequential(nn.Linear(in_features, 1024),
                                                   nn.ReLU(inplace=True),
                                                   nn.Dropout(p=0.3),
-                                                  nn.Linear(512, num_classes))
+                                                  nn.Linear(1024, num_classes))
+        else:
+            self.efficientnet.classifier = nn.Linear(in_features, num_classes)
 
     def forward(self, x):
         x = self.efficientnet(x)
         return x
 
-def efficientnet(**config):
+def efficientnet_ns(**config):
     config.setdefault('b_type', 3)
     config.setdefault('num_classes', 4)
     config.setdefault('two_stage', False)
