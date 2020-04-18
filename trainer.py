@@ -9,6 +9,7 @@ from models.modules.losses import CutMixCrossEntropyLoss, DenseCrossEntropy
 from data import get_loaders
 from ast import literal_eval
 from torch.optim.lr_scheduler import StepLR
+from utils.optim import get_exp_scheduler_with_warmup
 from utils.recorderx import RecoderX
 from copy import deepcopy
 from sklearn.model_selection import StratifiedKFold, train_test_split
@@ -53,7 +54,8 @@ class Trainer():
         self.optimizer = torch.optim.Adam(self.model.parameters(), lr=self.args.lr)
 
         # Initialize scheduler
-        self.scheduler = StepLR(self.optimizer, step_size=self.args.step_size, gamma=self.args.gamma)
+        # self.scheduler = StepLR(self.optimizer, step_size=self.args.step_size, gamma=self.args.gamma)
+        self.scheduler = get_exp_scheduler_with_warmup(self.optimizer, 5, 6)
 
         # Initialize loss
         if self.args.cutmix:
