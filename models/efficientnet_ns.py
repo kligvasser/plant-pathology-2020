@@ -11,7 +11,7 @@ class EfficientNet(nn.Module):
         if two_stage:
             self.efficientnet.classifier = nn.Sequential(nn.Linear(in_features, 1024),
                                                   nn.ReLU(inplace=True),
-                                                  nn.Dropout(p=0.3),
+                                                  nn.Dropout(p=0.5),
                                                   nn.Linear(1024, num_classes))
         else:
             self.efficientnet.classifier = nn.Linear(in_features, num_classes)

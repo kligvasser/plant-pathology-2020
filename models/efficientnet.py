@@ -10,10 +10,10 @@ class EfficientNet(nn.Module):
 
         if two_stage:
             in_features = self.efficientnet._fc.in_features
-            self.efficientnet._fc = nn.Sequential(nn.Linear(in_features, 512),
+            self.efficientnet._fc = nn.Sequential(nn.Linear(in_features, 1024),
                                                   nn.ReLU(inplace=True),
-                                                  nn.Dropout(p=0.3),
-                                                  nn.Linear(512, num_classes))
+                                                  nn.Dropout(p=0.5),
+                                                  nn.Linear(1024, num_classes))
 
     def forward(self, x):
         x = self.efficientnet(x)

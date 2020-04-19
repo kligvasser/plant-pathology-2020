@@ -19,6 +19,7 @@ This repository contains my code for the [Plant Pathology 2020](https://www.kagg
 - [ ] Loss: OHEM ([paper](https://arxiv.org/pdf/1604.03540.pdf))
 - [x] Loss: focal ([paper](https://arxiv.org/pdf/1708.02002.pdf))
 - [ ] Loss: additive angular margin (ArcFace) ([paper](https://arxiv.org/pdf/1801.07698.pdf))
+- [ ] Optimization: self-training with noisy student ([paper](https://arxiv.org/pdf/1911.04252.pdf))
 
 ## Scores
 

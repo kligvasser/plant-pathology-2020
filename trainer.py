@@ -282,7 +282,8 @@ class Trainer():
     def train_cross_validation(self):
         # Set folds
         stratified_k_fold = StratifiedKFold(n_splits=self.args.num_splits, shuffle=True, random_state=self.args.seed)
-        df_folds = pd.read_csv(os.path.join(self.args.root, 'train.csv')).iloc[:, 1:].values
+        # df_folds = pd.read_csv(os.path.join(self.args.root, 'train.csv')).iloc[:, 1:].values
+        df_folds = pd.read_csv(os.path.join(self.args.root, 'train_noisy.csv')).iloc[:, 1:].values
         y_folds = df_folds[:, 2] + df_folds[:, 3] * 2 + df_folds[:, 1] * 3
 
         # Run cross validation
