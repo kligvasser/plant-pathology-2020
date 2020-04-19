@@ -4,7 +4,7 @@ import torch.nn as nn
 __all__ = ['efficientnet']
 
 class EfficientNet(nn.Module):
-    def __init__(self, num_classes=4, b_type=7, two_stage=False, p=0.35):
+    def __init__(self, num_classes=4, b_type=7, two_stage=False, p=0.5):
         super().__init__()
         self.efficientnet = efficientnet_pytorch.EfficientNet.from_pretrained('efficientnet-b{}'.format(b_type), num_classes=num_classes)
 
@@ -23,6 +23,6 @@ def efficientnet(**config):
     config.setdefault('b_type', 3)
     config.setdefault('num_classes', 4)
     config.setdefault('two_stage', False)
-    config.setdefault('p', 0.35)
+    config.setdefault('p', 0.5)
 
     return EfficientNet(**config)
