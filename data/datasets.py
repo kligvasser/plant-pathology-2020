@@ -17,7 +17,7 @@ class Dataset(torch.utils.data.dataset.Dataset):
         input = Image.open(path).convert('RGB')
 
         target = self.df.loc[index, ['healthy', 'multiple_diseases', 'rust', 'scab']].values
-        target = torch.from_numpy(target.astype(np.float()))
+        target = torch.from_numpy(target.astype(np.float))
         _, target = torch.max(target, dim=0)
 
         if self.transforms:
