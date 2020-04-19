@@ -134,16 +134,12 @@ def get_transforms(args):
     # Test transforms
     if args.tta:
         transforms_tta = torchvision.transforms.Compose([
-            # torchvision.transforms.RandomHorizontalFlip(),
-            # torchvision.transforms.RandomVerticalFlip(),
-            # torchvision.transforms.ColorJitter(brightness=0.1, contrast=0.1, saturation=0.1),
             torchvision.transforms.ToTensor(),
             torchvision.transforms.Normalize(**_IMAGENET_STATS),
             ])
 
         transforms_test = torchvision.transforms.Compose([
             torchvision.transforms.Resize(scale_size),
-            # NRandomCrop(size=args.crop_size, n=args.tta),
             torchvision.transforms.TenCrop(args.crop_size),
             torchvision.transforms.Lambda(lambda crops: torch.stack([transforms_tta(crop) for crop in crops]))
             ])
@@ -162,6 +158,7 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser()
     parser.add_argument('--crop-size', default=500, type=int, help='image sizing (default: 500)')
+    parser.add_argument('--crop-scale', default=1.1, type=float, help='crop scaling for evaluation (default: 1.1)')
     parser.add_argument('--tta', default=16, type=int, help='tta num (default: 16)')
     parser.add_argument('--root', default='/home/kligtech/datasets/kaggle/plants', help='root dataset folder')
     args = parser.parse_args()
