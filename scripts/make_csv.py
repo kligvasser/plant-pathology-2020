@@ -6,9 +6,9 @@ _CLASS_PROPABILITY = [0.28, 0.05, 0.35, 0.32]
 
 def get_arguments():
     parser = argparse.ArgumentParser(description='Generate csv file for noisy student')
-    parser.add_argument('--csv-file', default='/home/kligtech/Downloads/submission_s6.csv', required=False, help='csv input file')
-    parser.add_argument('--num-samples', default=500, required=False, help='number of samples')
-    parser.add_argument('--margin', default=0.5, required=False, help='margin')
+    parser.add_argument('--csv-file', default='', required=True, help='csv input file')
+    parser.add_argument('--num-samples', default=800, required=False, help='number of samples (default: 800)')
+    parser.add_argument('--margin', default=0.5, required=False, help='margin (default: 0.5)')
 
     args = parser.parse_args()
     return args
@@ -25,7 +25,8 @@ def sample_df(df, args):
     frames = []
     for i, k in enumerate(df.keys()[1:]):
         frames.append(df[df[k] == 1.].sample(n=int(args.num_samples * _CLASS_PROPABILITY[i])))
-    return pd.concat(frames).sample(frac=1)
+    sampled = pd.concat(frames).sort_index()
+    return sampled
 
 def save_df(df, args):
     df.to_csv('./csv/generated_{}.csv'.format(args.num_samples), index=False)
