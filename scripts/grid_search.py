@@ -19,7 +19,7 @@ def rand_flag(flag, p=0.5):
 def get_params():
     crop_size = 768
     crop_scale = random.choice([1.1, 1.15, 1.2])
-    lr = random.uniform(0.00045, 0.00055)
+    lr = random.uniform(0.0004, 0.0005)
     step_size = 10 # random.randint(8, 12)
     epochs = 20 # random.randint(16, 20)
     seed = random.randint(1, 12345)
