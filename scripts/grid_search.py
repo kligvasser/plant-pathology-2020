@@ -20,8 +20,8 @@ def get_params():
     crop_size = 768
     crop_scale = random.choice([1.1, 1.15, 1.2])
     lr = random.uniform(0.0003, 0.00055)
-    step_size = random.randint(4, 8)
-    epochs = random.randint(8, 15)
+    step_size = random.randint(8, 12)
+    epochs = random.randint(16, 20)
     seed = random.randint(1, 10000)
     auc = random.uniform(0.85, 1.0)
     acc = 1 - auc
