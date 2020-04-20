@@ -19,12 +19,12 @@ def rand_flag(flag, p=0.5):
 def get_params():
     crop_size = 768
     crop_scale = random.choice([1.1, 1.15, 1.2])
-    lr = random.uniform(0.0003, 0.00055)
-    step_size = random.randint(8, 12)
-    epochs = random.randint(16, 20)
-    seed = random.randint(1, 10000)
-    auc = random.uniform(0.85, 1.0)
-    acc = 1 - auc
+    lr = random.uniform(0.00045, 0.00055)
+    step_size = 10 # random.randint(8, 12)
+    epochs = 20 # random.randint(16, 20)
+    seed = random.randint(1, 12345)
+    auc = 1. # random.uniform(0.85, 1.0)
+    acc = 1. - auc
 
     return {'crop_size': crop_size, 'crop_scale': crop_scale, 'lr': lr, 'step_size': step_size, 'epochs': epochs, 'seed': seed, 'auc': auc, 'acc': acc}
 

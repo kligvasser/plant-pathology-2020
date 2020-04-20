@@ -63,7 +63,6 @@ class Trainer():
         if self.args.cutmix:
             self.criterion = CutMixCrossEntropyLoss().to(self.device)
         else:
-            # self.criterion = torch.nn.CrossEntropyLoss().to(self.device)
             self.criterion = DenseCrossEntropy().to(self.device)
 
     def _init(self):
