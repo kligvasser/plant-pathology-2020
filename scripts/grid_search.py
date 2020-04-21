@@ -5,7 +5,7 @@ import os
 def get_arguments():
     parser = argparse.ArgumentParser(description='Running with random settings')
     parser.add_argument('--root', default='', required=True, help='dataset root folder')
-    parser.add_argument('--iterations', default=10, type=int, help='number of iterations (default 10)')
+    parser.add_argument('--iterations', default=10, type=int, help='number of iterations (default: 10)')
     args = parser.parse_args()
     return args
 
@@ -18,7 +18,7 @@ def rand_flag(flag, p=0.5):
 
 def get_params():
     crop_size = 768
-    crop_scale = random.choice([1.1, 1.15, 1.2])
+    crop_scale = 1.1 #random.choice([1.1, 1.15, 1.2])
     lr = random.uniform(0.0004, 0.0005)
     step_size = 10 # random.randint(8, 12)
     epochs = 20 # random.randint(16, 20)
