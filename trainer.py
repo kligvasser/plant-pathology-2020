@@ -280,9 +280,8 @@ class Trainer():
 
     def train_cross_validation(self):
         # Set folds
-        csv_file = 'train.csv'
         stratified_k_fold = StratifiedKFold(n_splits=self.args.num_splits, shuffle=True, random_state=self.args.seed)
-        df_folds = pd.read_csv(os.path.join(self.args.root, csv_file)).iloc[:, 1:].values
+        df_folds = pd.read_csv(os.path.join(self.args.root, 'train.csv')).iloc[:, 1:].values
         y_folds = np.argmax(df_folds, axis=1)
 
         # Run cross validation
@@ -290,7 +289,7 @@ class Trainer():
         preds_tot = None
         for i, (train_index, eval_index) in enumerate(stratified_k_fold.split(df_folds, y_folds)):
             # Set data-frames
-            df = pd.read_csv(os.path.join(self.args.root, csv_file))
+            df = pd.read_csv(os.path.join(self.args.root, 'train.csv'))
             df_train = df.iloc[train_index]
             df_train.reset_index(drop=True, inplace=True)
 
