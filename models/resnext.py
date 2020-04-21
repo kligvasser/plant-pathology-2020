@@ -16,10 +16,10 @@ class ResNet(nn.Module):
         if two_stage:
             self.classifer = nn.Sequential(nn.Linear(self.backbone.fc.in_features, 1024),
                                            nn.ReLU(inplace=True),
-                                           nn.Dropout(p=0.25),
+                                           nn.Dropout(p=0.2),
                                            nn.Linear(1024, num_classes))
         else:
-            self.classifer = nn.Sequential(nn.Dropout(p=0.25),
+            self.classifer = nn.Sequential(nn.Dropout(p=0.2),
                                            nn.Linear(self.backbone.fc.in_features, num_classes))
 
     def forward(self, x):
