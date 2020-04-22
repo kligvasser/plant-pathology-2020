@@ -243,7 +243,7 @@ class Trainer():
     def _save_submission(self, df, preds):
         # Save data-frame
         df[['healthy', 'multiple_diseases', 'rust', 'scab']] = preds
-        df.to_csv(self.args.save_path + '/submission' + '_s{}.csv'.format(self.session), index=False)
+        df.to_csv(os.path.join(self.args.save_path, 'submission_s{}.csv'.format(self.session)), index=False)
 
     def _train(self, loaders):
         # Initialize
@@ -316,7 +316,7 @@ class Trainer():
         # Save submission
         self.session += 1
         df = pd.read_csv(os.path.join(self.args.root, 'sample_submission.csv'))
-        self._save_submission(df, torch.softmax(preds_tot, dim=1))
+        self._save_submission(df, torch.softmax(2.5 * preds_tot, dim=1))
 
         # Close tensorboard
         if self.args.use_tb:
