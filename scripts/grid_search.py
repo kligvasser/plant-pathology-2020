@@ -29,7 +29,7 @@ def get_params():
     return {'crop_size': crop_size, 'crop_scale': crop_scale, 'lr': lr, 'step_size': step_size, 'epochs': epochs, 'seed': seed, 'auc': auc, 'acc': acc}
 
 def set_cmd(args, params):
-    cmd = 'python3 main.py --model efficientnet_ns --root {} --crop-size {} --crop-scale {} --train-cross-validation --lr {:.6f} --step-size {} --gamma 0.2 --epochs {} --batch-size 16 --device-ids 0 1 2 3 --seed {} --weight-auc {:.2f} --weight-acc {:.2f}'.format(args.root, params['crop_size'], params['crop_scale'], params['lr'], params['step_size'], params['epochs'], params['seed'], params['auc'], params['acc'])
+    cmd = 'python3 main.py --model efficientnet --root {} --crop-size {} --crop-scale {} --train-cross-validation --lr {:.6f} --step-size {} --gamma 0.2 --epochs {} --batch-size 16 --device-ids 0 1 2 3 --seed {} --weight-auc {:.2f} --weight-acc {:.2f}'.format(args.root, params['crop_size'], params['crop_scale'], params['lr'], params['step_size'], params['epochs'], params['seed'], params['auc'], params['acc'])
     return cmd
 
 def main():
