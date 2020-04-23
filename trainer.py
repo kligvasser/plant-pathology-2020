@@ -237,7 +237,7 @@ class Trainer():
 
     def _save_model(self):
         # Save models
-        torch.save(self.model_best.state_dict(), os.path.join(self.args.save_path, '{}_s().pt'.format(self.args.model, self.session + 1)))
+        torch.save(self.model_best.state_dict(), os.path.join(self.args.save_path, '{}_s{}.pt'.format(self.args.model, self.session + 1)))
 
     def _save_submission(self, df, preds):
         # Save data-frame
