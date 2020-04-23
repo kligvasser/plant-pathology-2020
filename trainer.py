@@ -229,18 +229,15 @@ class Trainer():
             if preds is None:
                 preds = outputs
             else:
-                # preds = torch.cat((preds, outputs), dim=0)
-                preds = torch.cat((torch.softmax(preds, dim=1), outputs), dim=0)
+                preds = torch.cat((preds, outputs), dim=0)
 
         # Save submission
-        # self._save_submission(df, torch.softmax(preds, dim=1))
-        self._save_submission(df, preds)
+        self._save_submission(df, torch.softmax(preds, dim=1))
         return preds
 
     def _save_model(self):
         # Save models
-        name = self.args.model
-        torch.save(self.model_best.state_dict(), self.args.save_path + '/' + name + '_s' + str(self.session + 1) + '.pt')
+        torch.save(self.model_best.state_dict(), os.path.join(self.args.save_path, '{}_s().pt'.format(self.args.model, self.session + 1)))
 
     def _save_submission(self, df, preds):
         # Save data-frame
@@ -318,8 +315,7 @@ class Trainer():
         # Save submission
         self.session += 1
         df = pd.read_csv(os.path.join(self.args.root, 'sample_submission.csv'))
-        # self._save_submission(df, torch.softmax(preds_tot, dim=1))
-        self._save_submission(df, preds_tot)
+        self._save_submission(df, torch.softmax(preds_tot, dim=1))
 
         # Close tensorboard
         if self.args.use_tb:
