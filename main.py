@@ -81,7 +81,8 @@ def main():
         trainer.test()
 
     else:
-        trainer.train()
+        # trainer.train()
+        trainer.train_no_eval()
 
 if __name__ == '__main__':
     # Enables a ctrl-c without triggering errors

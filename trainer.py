@@ -260,13 +260,13 @@ class Trainer():
             auc, acc = self._eval_epoch(loaders['eval'], epoch)
             score = auc * self.args.weight_auc + (acc / 100.) * self.args.weight_acc
 
-            # Scheduler
-            self.scheduler.step(epoch=epoch)
-
             # Check best model
             if score > self.score_best:
                 self.score_best = score
                 self.model_best = deepcopy(self.model)
+
+            # Scheduler
+            self.scheduler.step(epoch=epoch)
 
         # Best Score
         logging.info('Best evaluation score: {:.3f}\n'.format(self.score_best))
@@ -330,6 +330,25 @@ class Trainer():
 
         # Get loaders
         loaders = get_loaders(self.args, df_train, df_eval)
+
+        # Run training
+        self._train(loaders)
+
+        logging.info('\nFinished training with auc of: {:.3f}'.format(self.score_best))
+
+        # Test
+        self._test_epoch()
+
+        # Close tensorboard
+        if self.args.use_tb:
+            self.tb.close()
+
+    def train_no_eval(self):
+        # Get data-frames
+        df = pd.read_csv(os.path.join(self.args.root, 'train.csv'))
+
+        # Get loaders
+        loaders = get_loaders(self.args, df, df)
 
         # Run training
         self._train(loaders)
