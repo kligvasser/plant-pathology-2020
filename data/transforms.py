@@ -133,13 +133,15 @@ def get_transforms(args):
     # Test transforms
     if args.tta:
         transforms_tta = torchvision.transforms.Compose([
+            torchvision.transforms.RandomHorizontalFlip(),
+            torchvision.transforms.RandomVerticalFlip(),
             torchvision.transforms.ToTensor(),
             torchvision.transforms.Normalize(**_IMAGENET_STATS),
             ])
 
         transforms_test = torchvision.transforms.Compose([
             torchvision.transforms.Resize(scale_size),
-            torchvision.transforms.TenCrop(args.crop_size),
+            NRandomCrop(args.crop_size, 5),
             torchvision.transforms.Lambda(lambda crops: torch.stack([transforms_tta(crop) for crop in crops]))
             ])
     else:
