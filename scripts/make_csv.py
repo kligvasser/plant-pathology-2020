@@ -1,13 +1,16 @@
 import argparse
 import pandas as pd
 import numpy as np
+import os
 
-_CLASS_PROPABILITY = [0.28, 0.05, 0.35, 0.32]
+# _CLASS_PROPABILITY = [0.28, 0.05, 0.35, 0.32] # training set stats
+# _CLASS_PROPABILITY = [0.20, 0.08, 0.40, 0.32] # testing set stats
+_CLASS_PROPABILITY = [0.20, 0.15, 0.35, 0.30]
 
 def get_arguments():
-    parser = argparse.ArgumentParser(description='Generate csv file for noisy student')
+    parser = argparse.ArgumentParser(description='Generate csv file for noisy student learning')
     parser.add_argument('--csv-file', default='', required=True, help='csv input file')
-    parser.add_argument('--num-samples', default=800, required=False, help='number of samples (default: 800)')
+    parser.add_argument('--num-samples', default=200, required=False, help='number of samples (default: 200)')
     parser.add_argument('--margin', default=0.5, required=False, help='margin (default: 0.5)')
 
     args = parser.parse_args()
@@ -29,7 +32,8 @@ def sample_df(df, args):
     return sampled
 
 def save_df(df, args):
-    df.to_csv('./csv/generated_{}.csv'.format(args.num_samples), index=False)
+    path2save = args.csv_file.replace(os.path.basename(args.csv_file), 'generated_{}.csv'.format(args.num_samples))
+    df.to_csv(path2save, index=False)
 
 def main():
     args = get_arguments()
