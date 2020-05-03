@@ -19,14 +19,14 @@ def rand_flag(flag, p=0.5):
 def get_params():
     crop_size = 768
     crop_scale = 1.1
-    lr = random.uniform(0.0004, 0.0005)
-    step_size = random.randint(7, 9)
-    epochs = random.randint(15, 18)
+    lr = random.uniform(0.0004, 0.00045)
+    step_size = random.randint(7, 8)
+    epochs = random.randint(17, 18)
     seed = random.randint(1, 12345)
-    auc = random.uniform(0.9, 1.0)
+    auc = random.uniform(0.95, 1.0)
     acc = 1. - auc
-    splits = random.randint(4, 8)
-    tta = rand_flag('--tta', 0.25)
+    splits = random.randint(4, 7)
+    tta = rand_flag('--tta', 0.5)
 
     return {'crop_size': crop_size, 'crop_scale': crop_scale, 'lr': lr, 'step_size': step_size, 'epochs': epochs, 'seed': seed, 'auc': auc, 'acc': acc, 'tta': tta, 'splits': splits}
 
