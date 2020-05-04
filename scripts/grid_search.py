@@ -21,7 +21,7 @@ def get_params():
     crop_scale = 1.1
     lr = random.uniform(0.00041, 0.00044)
     step_size = random.randint(7, 8)
-    epochs = random.randint(17, 18)
+    epochs = random.randint(16, 18)
     seed = random.randint(1, 12345)
     auc = random.uniform(0.95, 1.0)
     acc = 1. - auc

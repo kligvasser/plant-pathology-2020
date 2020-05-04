@@ -10,8 +10,8 @@ _CLASS_PROPABILITY = [0.20, 0.15, 0.35, 0.30]
 def get_arguments():
     parser = argparse.ArgumentParser(description='Generate csv file for noisy student learning')
     parser.add_argument('--csv-file', default='', required=True, help='csv input file')
-    parser.add_argument('--num-samples', default=200, required=False, help='number of samples (default: 200)')
-    parser.add_argument('--margin', default=0.5, required=False, help='margin (default: 0.5)')
+    parser.add_argument('--num-samples', default=200, required=False, type=int, help='number of samples (default: 200)')
+    parser.add_argument('--margin', default=0.5, required=False, type=float, help='margin (default: 0.5)')
 
     args = parser.parse_args()
     return args
