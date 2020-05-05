@@ -14,10 +14,7 @@ class Inception(nn.Module):
                                               nn.ReLU(inplace=True),
                                               nn.Dropout(p=0.2),
                                               nn.Linear(1024, num_classes))
-        else:
-            self.inception.fc = nn.Sequential(nn.Dropout(p=0.2),
-                                           nn.Linear(self.inception.fc.in_features, num_classes))
-
+            
     def forward(self, x):
         x = self.inception(x)
         return x
