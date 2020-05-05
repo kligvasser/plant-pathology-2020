@@ -26,7 +26,7 @@ def get_params():
     auc = random.uniform(0.95, 1.0)
     acc = 1. - auc
     splits = random.randint(4, 7)
-    tta = rand_flag('--tta', 0.5)
+    tta = rand_flag('--tta', 0.25)
 
     return {'crop_size': crop_size, 'crop_scale': crop_scale, 'lr': lr, 'step_size': step_size, 'epochs': epochs, 'seed': seed, 'auc': auc, 'acc': acc, 'tta': tta, 'splits': splits}
 
