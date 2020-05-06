@@ -19,14 +19,14 @@ def rand_flag(flag, p=0.5):
 def get_params_efficient():
     crop_size = 768
     crop_scale = 1.1
-    lr = random.uniform(0.00041, 0.00044)
+    lr = random.uniform(0.00040, 0.00045)
     step_size = random.randint(7, 8)
     epochs = random.randint(16, 18)
     seed = random.randint(1, 12345)
     auc = random.uniform(0.95, 1.0)
     acc = 1. - auc
-    splits = random.randint(4, 7)
-    tta = rand_flag('--tta', 0.25)
+    splits = random.randint(4, 6)
+    tta = rand_flag('--tta', 0.5)
 
     return {'crop_size': crop_size, 'crop_scale': crop_scale, 'lr': lr, 'step_size': step_size, 'epochs': epochs, 'seed': seed, 'auc': auc, 'acc': acc, 'tta': tta, 'splits': splits}
 
@@ -56,8 +56,8 @@ def main():
     args = get_arguments()
 
     for i in range(args.iterations):
-        params = get_params_inception()
-        cmd = set_cmd_inception(args, params)
+        params = get_params_efficient()
+        cmd = set_cmd_efficient(args, params)
         print('\n\nRunning {}/{}: {}'.format(i + 1, args.iterations, cmd))
         os.system(cmd)
 
