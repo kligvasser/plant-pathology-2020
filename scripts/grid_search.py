@@ -34,8 +34,8 @@ def get_params_inception():
     crop_size = 768
     crop_scale = 1.1
     lr = random.uniform(0.00040, 0.00045)
-    step_size = random.randint(9, 11)
-    epochs = random.randint(18, 22)
+    step_size = random.randint(10, 12)
+    epochs = random.randint(20, 24)
     seed = random.randint(1, 12345)
     auc = random.uniform(0.95, 1.0)
     acc = 1. - auc
