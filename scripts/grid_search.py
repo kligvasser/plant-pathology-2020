@@ -17,7 +17,7 @@ def rand_flag(flag, p=0.5):
         return ''
 
 def get_params_efficient():
-    crop_size = 784
+    crop_size = 800
     crop_scale = 1.1
     lr = random.uniform(0.00041, 0.00044)
     step_size = random.randint(7, 8)
