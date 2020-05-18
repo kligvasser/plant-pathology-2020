@@ -280,7 +280,7 @@ class Trainer():
     def train_cross_validation(self):
         # Set folds
         # train_csv_file = os.path.join(self.args.root, 'train.csv')
-        train_csv_file = './scripts/csv/generated/train_250.csv'
+        train_csv_file = './scripts/csv/generated/train_200.csv'
         stratified_k_fold = StratifiedKFold(n_splits=self.args.num_splits, shuffle=True, random_state=self.args.seed)
         df_folds = pd.read_csv(train_csv_file).iloc[:, 1:].values
         y_folds = np.argmax(df_folds, axis=1)
